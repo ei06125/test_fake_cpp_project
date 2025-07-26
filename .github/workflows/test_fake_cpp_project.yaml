@@ -35,11 +35,7 @@ jobs:
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake
-        -G ${{ env.GENERATOR }} \
-        -B ${{github.workspace}}/build \
-        -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-        -DCMAKE_CXX_STANDARD=23
+      run: cmake -G ${{ env.GENERATOR }} -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
     - name: Build
       # Build your program with the given configuration
@@ -50,7 +46,7 @@ jobs:
         echo "Requesting deployment of fake_cpp_project ..."
         # Replace these variables with your target repo and token
         TARGET_REPO="ei06125/fake_cpp_project"
-        WORKFLOW_ID="deploy.yml"
+        WORKFLOW_ID="deploy.yaml"
         GITHUB_TOKEN="${{ secrets.PERSONAL_ACCESS_TOKEN }}"
         API_URL="https://api.github.com/repos/$TARGET_REPO/actions/workflows/$WORKFLOW_ID/dispatches"
         # Trigger the workflow (customize ref and inputs as needed)

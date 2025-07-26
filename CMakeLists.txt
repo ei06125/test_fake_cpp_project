@@ -5,7 +5,7 @@ include(FetchContent)
 FetchContent_Declare(
   fake_cpp_project
   GIT_REPOSITORY https://github.com/ei06125/fake_cpp_project.git
-  GIT_TAG 7b6d2700e87f4ae03d6cacf585165ce282b81f68
+  GIT_TAG 3ec42b808b1ccbf1a704c18126e6e6a71c820e88
 )
 FetchContent_MakeAvailable(fake_cpp_project)
 
