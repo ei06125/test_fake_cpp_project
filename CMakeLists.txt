@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.22)
 project(test_fake_cpp_project)
 
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQURED ON)
+
 include(FetchContent)
 FetchContent_Declare(
   fake_cpp_project
