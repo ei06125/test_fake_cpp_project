@@ -17,6 +17,8 @@ inline void println(const std::format_string<Args...> fmt, Args &&...args) {
 
 #endif
 
+#include <string>
+
 #include <fake/fake.hpp>
 
 int main() {
