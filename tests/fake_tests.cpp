@@ -1,12 +1,19 @@
 #if defined __has_include
-  #if __has_include(<print>)
-    #include <print>
+#  if __has_include(<print>)
+#    include <print>
 namespace mystd = std;
-  #endif
+#  else
+#    include <format>
+#    include <iostream>
+#    define USE_MYSTD
+#  endif
 #else
-  #include <format>
-  #include <iostream>
+#  include <format>
+#  include <iostream>
+#  define USE_MYSTD
+#endif
 
+#ifdef USE_MYSTD
 namespace mystd {
 
 template <typename... Args>
@@ -14,8 +21,7 @@ inline void println(const std::format_string<Args...> fmt, Args &&...args) {
   std::cout << std::vformat(fmt.get(), std::make_format_args(args...)) << '\n';
 }
 } // namespace mystd
-
-#endif
+#endif // USE_MYSTD
 
 #include <string>
 
