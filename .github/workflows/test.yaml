@@ -47,4 +47,4 @@ jobs:
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer $GITHUB_TOKEN" \
           -H "Content-Type: application/json" \
-          --data '{"ref":" ${{ inputs.gitBranch }}"}'
+          --data '{"ref":"${{ inputs.gitBranch }}"}'
