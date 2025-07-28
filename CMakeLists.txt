@@ -4,10 +4,12 @@ project(test_fake_cpp_project)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQURED ON)
 
+set(FAKE_CPP_PROJECT_BRANCH main CACHE STRING "The branch to download" FORCE)
 include(FetchContent)
 FetchContent_Declare(
   fake_cpp_project
   GIT_REPOSITORY https://github.com/ei06125/fake_cpp_project.git
+  GIT_TAG ${FAKE_CPP_PROJECT_BRANCH}
 )
 FetchContent_MakeAvailable(fake_cpp_project)
 
