@@ -3,10 +3,7 @@
 name: Test fake_cpp_project
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  workflow_dispatch
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -22,10 +19,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-
-    - name: Cat Code
-      run: |
-        cat ${{ github.workspace }}/tests/fake_tests.cpp
 
     - name: Update system and install GCC for C++23
       run: |
