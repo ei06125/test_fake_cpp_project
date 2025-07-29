@@ -4,9 +4,9 @@ name: Self-Test fake_cpp_project
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "dev" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -35,16 +35,16 @@ jobs:
     - name: Test
       run: ctest
 
-    - name: Request Deployment of fake_cpp_project
-      run: |
-        echo "Requesting deployment of fake_cpp_project ..."
-        TARGET_REPO="ei06125/fake_cpp_project"
-        WORKFLOW_ID="deploy.yaml"
-        GITHUB_TOKEN="${{ secrets.PERSONAL_ACCESS_TOKEN }}"
-        API_URL="https://api.github.com/repos/$TARGET_REPO/actions/workflows/$WORKFLOW_ID/dispatches"
-        # Trigger the workflow (customize ref and inputs as needed)
-        curl -X POST $API_URL \
-          -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer $GITHUB_TOKEN" \
-          -H "Content-Type: application/json" \
-          --data '{"ref":"main"}'
+    # - name: Request Deployment of fake_cpp_project
+    #   run: |
+    #     echo "Requesting deployment of fake_cpp_project ..."
+    #     TARGET_REPO="ei06125/fake_cpp_project"
+    #     WORKFLOW_ID="deploy.yaml"
+    #     GITHUB_TOKEN="${{ secrets.PERSONAL_ACCESS_TOKEN }}"
+    #     API_URL="https://api.github.com/repos/$TARGET_REPO/actions/workflows/$WORKFLOW_ID/dispatches"
+    #     # Trigger the workflow (customize ref and inputs as needed)
+    #     curl -X POST $API_URL \
+    #       -H "Accept: application/vnd.github+json" \
+    #       -H "Authorization: Bearer $GITHUB_TOKEN" \
+    #       -H "Content-Type: application/json" \
+    #       --data '{"ref":"main"}'
