@@ -18,3 +18,6 @@ file(GLOB_RECURSE test_fake_cpp_SOURCES "tests/*.cpp")
 target_sources(test_fake_cpp PRIVATE ${test_fake_cpp_SOURCES})
 target_compile_features(test_fake_cpp PRIVATE cxx_std_23)
 target_link_libraries(test_fake_cpp PRIVATE FAKE::fake_cpp_lib)
+
+include(CTest)
+add_test(NAME test_fake_cpp COMMAND test_fake_cpp)
