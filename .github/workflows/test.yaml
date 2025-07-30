@@ -57,10 +57,10 @@ jobs:
     
     - name: Test
       run: |
-        docker exec -w /project-tests test_fake_cpp_project-container-${{ github.run_id }} sh -c "ctest"
+        docker exec -w /project-tests test_fake_cpp_project-container-${{ github.run_id }} sh -c "ctest --test-dir build"
 
     - name: Teardown
-      run:
+      run: |
         docker container stop test_fake_cpp_project-container-${{ github.run_id }}
         docker container rm test_fake_cpp_project-container-${{ github.run_id }}
 
