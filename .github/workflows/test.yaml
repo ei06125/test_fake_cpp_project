@@ -57,7 +57,7 @@ jobs:
     
     - name: Test
       run: |
-        docker exec -w /project-tests test_fake_cpp_project-container-${{ github.run_id }} sh -c "ctest --test-dir build --config ${{env.BUILD_TYPE}}"
+        docker exec -w /project-tests test_fake_cpp_project-container-${{ github.run_id }} sh -c "ctest"
 
     - name: Teardown
       run:
