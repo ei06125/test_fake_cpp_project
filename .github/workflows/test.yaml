@@ -10,6 +10,9 @@ on:
         required: false
         default: 'main'
         type: string
+      container_id:
+        description: "The github run ID from build.yaml"
+        required: true
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -26,17 +29,13 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Configure CMake
-      # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
-      # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake -G ${{ env.GENERATOR }} -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DFAKE_CPP_PROJECT_BRANCH:STRING=${{ inputs.gitBranch }}
-
-    - name: Build
-      # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+    - name: Check System Requirements
+      run: |
+        echo "N/A"
 
     - name: Test
-      run: ctest
+      run: |
+        docker exec -w /project -d fake_cpp_project-container-${{ inputs.container_id }} sh -c "ctest --test-dir build --config ${{env.BUILD_TYPE}}"
 
     - name: Request Deployment of fake_cpp_project
       run: |
