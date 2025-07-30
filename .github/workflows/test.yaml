@@ -30,9 +30,39 @@ jobs:
       run: |
         echo "N/A"
 
+    - name: Setup
+      run: |
+        docker run --name test_fake_cpp_project-container-${{ github.run_id }} --detach -i -t -v .:/project-tests alpine /bin/sh
+
+    - name: Configure
+      run: |
+        docker exec -w /project-tests test_fake_cpp_project-container-${{ github.run_id }} sh -c "apk update && apk add \
+          clang \
+          lld \
+          ninja \
+          ccache \
+          cmake \
+          build-base \
+          python3 \
+          git \
+          zlib-dev"
+
+    - name: Generate
+      run: |
+        docker exec -w /project-tests test_fake_cpp_project-container-${{ github.run_id }} sh -c "cmake -S . -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G ${{ env.GENERATOR }}"
+
+    - name: Build
+      run: |
+        docker exec -w /project-tests test_fake_cpp_project-container-${{ github.run_id }} sh -c "cmake --build build --config ${{env.BUILD_TYPE}}"
+    
     - name: Test
       run: |
-        docker exec -w /project fake_cpp_project-container-${{ inputs.container_id }} sh -c "ctest --test-dir build --config ${{env.BUILD_TYPE}}"
+        docker exec -w /project-tests test_fake_cpp_project-container-${{ github.run_id }} sh -c "ctest --test-dir build --config ${{env.BUILD_TYPE}}"
+
+    - name: Teardown
+      run:
+        docker container stop test_fake_cpp_project-container-${{ github.run_id }}
+        docker container rm test_fake_cpp_project-container-${{ github.run_id }}
 
     - name: Request Deployment of fake_cpp_project
       run: |
