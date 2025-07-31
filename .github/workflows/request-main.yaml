@@ -16,11 +16,13 @@ jobs:
       pull-requests: write
     uses: ei06125/fake_cpp_project/.github/workflows/dev-build.yaml@main
     with:
-      gitBranch: ${{ github.ref_name || github.head_ref }}
+      gitBranch: ${{ github.head_ref }}
     secrets: inherit
 
   on-dev-build-completed:
     runs-on: [self-hosted, macOS, ARM64]
     needs: call-dev-build
     steps:
-      - run: echo ${{ needs.call-dev-build.outputs.build_result }}
+      - id: summary
+        run: |
+          echo "build_result: ${{ needs.call-dev-build.outputs.build_result }}" 
