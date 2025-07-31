@@ -63,17 +63,3 @@ jobs:
       run: |
         docker container stop test_fake_cpp_project-container-${{ github.run_id }}
         docker container rm test_fake_cpp_project-container-${{ github.run_id }}
-
-    # - name: Request Deployment of fake_cpp_project
-    #   run: |
-    #     echo "Requesting deployment of fake_cpp_project ..."
-    #     TARGET_REPO="ei06125/fake_cpp_project"
-    #     WORKFLOW_ID="deploy.yaml"
-    #     GITHUB_TOKEN="${{ secrets.PERSONAL_ACCESS_TOKEN }}"
-    #     API_URL="https://api.github.com/repos/$TARGET_REPO/actions/workflows/$WORKFLOW_ID/dispatches"
-    #     # Trigger the workflow (customize ref and inputs as needed)
-    #     curl -X POST $API_URL \
-    #       -H "Accept: application/vnd.github+json" \
-    #       -H "Authorization: Bearer $GITHUB_TOKEN" \
-    #       -H "Content-Type: application/json" \
-    #       --data '{"ref":"${{ inputs.gitBranch }}", "inputs":{"gitBranch":"${{ inputs.gitBranch }}", "container_id":"${{ inputs.container_id }}"}}'
