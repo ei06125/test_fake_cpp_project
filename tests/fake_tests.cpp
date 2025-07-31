@@ -41,5 +41,5 @@ int main() {
                  80 - test_name.size());
   mystd::println("{}", std::string(80, '-'));
 
-  return 21 == fake::get_value();
+  return 21 == fake::get_value() ? 0 : 1;
 }

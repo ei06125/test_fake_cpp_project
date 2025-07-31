@@ -28,7 +28,7 @@ jobs:
 
     - name: Check System Requirements
       run: |
-        echo "N/A"
+        echo "gitBranch: ${{ inputs.gitBranch }}"
 
     - name: Setup
       run: |
