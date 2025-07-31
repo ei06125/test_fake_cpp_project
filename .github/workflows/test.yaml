@@ -31,6 +31,7 @@ jobs:
       with:
         # we need this because test.yaml is called from fake_cpp_project which overrides ${{ github.repository }}, the default value of repository
         repository: 'ei06125/test_fake_cpp_project'
+        path: project-tests
 
     - id: check-system-requirements
       name: Check System Requirements
@@ -40,7 +41,7 @@ jobs:
     - id: setup
       name: Setup
       run: |
-        docker run --name test_fake_cpp_project-container-${{ github.run_id }} --detach -i -t -v .:/project-tests alpine /bin/sh
+        docker run --name test_fake_cpp_project-container-${{ github.run_id }} --detach -i -t -v ./project-tests:/project-tests alpine /bin/sh
 
     - id: configure
       name: Configure
