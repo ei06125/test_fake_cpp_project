@@ -27,4 +27,4 @@ inline void println(const std::format_string<Args...> fmt, Args &&...args) {
 
 #include <fake/fake.hpp>
 
-int main() { return 21 == fake::get_value() ? 0 : 1; }
+int main() { return 42 == fake::get_value() ? 0 : 1; }
