@@ -28,6 +28,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        # we need this because test.yaml is called from fake_cpp_project which overrides ${{ github.repository }}, the default value of repository
+        repository: 'ei06125/test_fake_cpp_project'
 
     - id: check-system-requirements
       name: Check System Requirements
