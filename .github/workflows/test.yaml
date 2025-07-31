@@ -13,10 +13,11 @@ on:
       container_id:
         description: "The github run ID from build.yaml"
         required: true
+        type: string
     outputs:
       success:
         description: "Returns if the Tests succeeded."
-        value: ${{ jobs.test.outputs.test_result }}
+        value: ${{ jobs.test.result }}
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -29,7 +30,7 @@ jobs:
     runs-on: [self-hosted, MacOS, ARM64]
 
     outputs:
-      test_result: ${{ steps.test.test_result }}
+      result: ${{ steps.test.conclusion }}
 
     steps:
     - uses: actions/checkout@v4
