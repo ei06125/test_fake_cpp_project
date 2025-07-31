@@ -8,10 +8,6 @@ on:
         required: true
         default: 'main'
         type: string
-      container_id:
-        description: "The github run ID from main-build.yaml (used for containers management)"
-        required: true
-        type: string
     outputs:
       test_result:
         description: "Returns if the Tests succeeded."
