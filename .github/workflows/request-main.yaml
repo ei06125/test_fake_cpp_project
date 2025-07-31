@@ -1,8 +1,6 @@
 name: Dev-Build
 
 on:
-  push:
-    branches: [ "dev" ] # Trigger on push to dev (we don't allow push to main)
   pull_request:
     branches: [ "main", "dev" ] # Trigger on PRs to main or dev
 
@@ -25,4 +23,4 @@ jobs:
     runs-on: [self-hosted, macOS, ARM64]
     needs: call-dev-build
     steps:
-      - run: echo ${{ needs.call-dev-build.outputs.success }}
+      - run: echo ${{ needs.call-dev-build.outputs.build_result }}

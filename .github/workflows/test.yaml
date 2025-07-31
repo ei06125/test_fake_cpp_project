@@ -1,23 +1,21 @@
-# This starter workflow is for a CMake project running on a single platform. There is a different starter workflow if you need cross-platform coverage.
-# See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-multi-platform.yml
-name: Test fake_cpp_project
-
+name: Test Requested
+run-name: Test fake_cpp_project
 on:
   workflow_call:
     inputs:
       gitBranch:
-        description: 'The git branch to test'
-        required: false
+        description: 'The git branch to test (passed to FetchContent GIT_TAG)'
+        required: true
         default: 'main'
         type: string
       container_id:
-        description: "The github run ID from build.yaml"
+        description: "The github run ID from main-build.yaml (used for containers management)"
         required: true
         type: string
     outputs:
-      success:
+      test_result:
         description: "Returns if the Tests succeeded."
-        value: ${{ jobs.test.result }}
+        value: ${{ jobs.tests.outputs.test_result }}
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -25,12 +23,12 @@ env:
   GENERATOR: Ninja
 
 jobs:
-  test:
+  tests:
     name: Run Project Tests
     runs-on: [self-hosted, MacOS, ARM64]
 
     outputs:
-      result: ${{ steps.test.conclusion }}
+      test_result: ${{ steps.test.outputs.test_result }}
 
     steps:
     - uses: actions/checkout@v4
@@ -62,7 +60,7 @@ jobs:
     - id: generate
       name: Generate
       run: |
-        docker exec -w /project-tests test_fake_cpp_project-container-${{ github.run_id }} sh -c "cmake -S . -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G ${{ env.GENERATOR }}"
+        docker exec -w /project-tests test_fake_cpp_project-container-${{ github.run_id }} sh -c "cmake -S . -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G ${{ env.GENERATOR }} -DFAKE_CPP_PROJECT_BRANCH=${{ inputs.gitBranch }}"
 
     - id: build
       name: Build
