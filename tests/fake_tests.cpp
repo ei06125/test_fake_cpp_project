@@ -27,19 +27,4 @@ inline void println(const std::format_string<Args...> fmt, Args &&...args) {
 
 #include <fake/fake.hpp>
 
-int main() {
-  mystd::println("{}", std::string(80, '='));
-  mystd::println("Running fake_cpp_project tests");
-  mystd::println("{}", std::string(80, '='));
-
-  // get_value
-  mystd::println("{}", std::string(80, '-'));
-  mystd::println("Running fake_cpp_project get_value tests");
-  constexpr std::string_view test_name = "get_value returns 42: ";
-  mystd::println("{}{:>{}}", test_name,
-                 (42 == fake::get_value() ? "PASSED" : "FAILED"),
-                 80 - test_name.size());
-  mystd::println("{}", std::string(80, '-'));
-
-  return 21 == fake::get_value() ? 0 : 1;
-}
+int main() { return 21 == fake::get_value() ? 0 : 1; }

@@ -64,5 +64,5 @@ jobs:
       if: always()
       run: |
         echo "Cleaning up container ..."
-        docker container stop test_fake_cpp_project-container-${{ github.run_id }} || echo "Container already stopped
-        docker container rm test_fake_cpp_project-container-${{ github.run_id }} || echo "Container already removed
+        docker container stop test_fake_cpp_project-container-${{ github.run_id }} || echo "Container already stopped"
+        docker container rm test_fake_cpp_project-container-${{ github.run_id }} || echo "Container already removed"
