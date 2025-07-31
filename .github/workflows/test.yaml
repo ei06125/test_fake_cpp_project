@@ -61,6 +61,8 @@ jobs:
         docker exec -w /project-tests test_fake_cpp_project-container-${{ github.run_id }} sh -c "ctest --test-dir build --output-on-failure"
 
     - name: Teardown
+      if: always()
       run: |
-        docker container stop test_fake_cpp_project-container-${{ github.run_id }}
-        docker container rm test_fake_cpp_project-container-${{ github.run_id }}
+        echo "Cleaning up container ..."
+        docker container stop test_fake_cpp_project-container-${{ github.run_id }} || echo "Container already stopped
+        docker container rm test_fake_cpp_project-container-${{ github.run_id }} || echo "Container already removed
