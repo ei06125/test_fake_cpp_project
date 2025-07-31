@@ -1,0 +1,28 @@
+name: Dev-Build
+
+on:
+  pull_request:
+    branches: [ "main", "dev" ] # Trigger on PRs to main or dev
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+  GENERATOR: Ninja
+
+jobs:
+  call-dev-build:
+    permissions:
+      contents: read
+      pull-requests: write
+    uses: ei06125/fake_cpp_project/.github/workflows/dev-build.yaml@main
+    with:
+      gitBranch: ${{ github.head_ref }}
+    secrets: inherit
+
+  on-dev-build-completed:
+    runs-on: [self-hosted, macOS, ARM64]
+    needs: call-dev-build
+    steps:
+      - id: summary
+        run: |
+          echo "build_result: ${{ needs.call-dev-build.outputs.build_result }}" 
