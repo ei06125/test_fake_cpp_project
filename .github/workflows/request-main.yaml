@@ -20,7 +20,7 @@ jobs:
     secrets: inherit
 
   on-dev-build-completed:
-    runs-on: [self-hosted, macOS, ARM64]
+    runs-on: [ubuntu-latest]
     needs: call-dev-build
     steps:
       - id: summary
