@@ -21,7 +21,7 @@ env:
 jobs:
   tests:
     name: Run Project Tests
-    runs-on: [self-hosted, MacOS, ARM64]
+    runs-on: [ubuntu-latest]
 
     outputs:
       test_result: ${{ steps.test.outputs.test_result }}
